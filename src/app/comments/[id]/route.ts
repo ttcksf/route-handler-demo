@@ -23,8 +23,19 @@ export async function PATCH(
   return Response.json(comments[index]);
 }
 
+export async function DELETE(
+  _request: Request,
+  { params }: { params: { id: string } }
+) {
+  const index = comments.findIndex(
+    (comment) => comment.id === parseInt(params.id)
+  );
+  console.log(index);
+
+  const deletedComment = comments[index];
+  comments.splice(index, 1);
+  return Response.json(deletedComment);
+}
+
 // ターミナルを再起動
-// PATCH:http://localhost:3000/comments/1
-// {
-//   "text": "修正しました"
-// }
+// DELETE:http://localhost:3000/comments/1
