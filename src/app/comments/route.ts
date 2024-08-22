@@ -1,6 +1,7 @@
 import { NextRequest } from 'next/server';
 import { comments } from './data';
 
+// requestの型名をNextRequestにしておく
 export async function GET(request: NextRequest) {
   // URLのパラメーター群にアクセスして定数に再代入しておく
   const searchParams = request.nextUrl.searchParams;
