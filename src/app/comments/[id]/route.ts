@@ -1,9 +1,16 @@
+import { redirect } from 'next/navigation';
 import { comments } from '../data';
 
 export async function GET(
   _request: Request,
   { params }: { params: { id: string } }
 ) {
+  // next/navigationのredirectにはリダイレクトさせたいパスを指定
+  // 存在しないIDの時にリダイレクトされ検証ツールのネットワークからステータス307307になっていることが確認できる
+  console.log(params);
+  if (parseInt(params.id) > comments.length) {
+    redirect('/comments');
+  }
   const comment = comments.find(
     (comment) => comment.id === parseInt(params.id)
   );
@@ -30,7 +37,6 @@ export async function DELETE(
   const index = comments.findIndex(
     (comment) => comment.id === parseInt(params.id)
   );
-  console.log(index);
 
   const deletedComment = comments[index];
   comments.splice(index, 1);
