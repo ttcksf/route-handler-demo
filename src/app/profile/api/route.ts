@@ -2,6 +2,7 @@ import { headers } from 'next/headers';
 import { NextRequest } from 'next/server';
 
 // 引数を追加しておく
+// Thunder Clientでhttp://localhost:3000/profile/apiで実行する
 export async function GET(request: NextRequest) {
   // 1.リクエスト（受信）のヘッダー情報を取得する方法
   // const requestHeaders = new Headers(request.headers);
