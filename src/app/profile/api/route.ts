@@ -1,22 +1,23 @@
-import { headers } from 'next/headers';
+import { cookies, headers } from 'next/headers';
 import { NextRequest } from 'next/server';
 
-// 引数を追加しておく
-// Thunder Clientでhttp://localhost:3000/profile/apiで実行する
 export async function GET(request: NextRequest) {
-  // 1.リクエスト（受信）のヘッダー情報を取得する方法
-  // const requestHeaders = new Headers(request.headers);
-  // Thunder ClientのHeadersにAuthorization：Bearer 12345を追加して実行しターミナルを確認する
-  // console.log(requestHeaders);
-  // Next.jsの機能にも同様のものがある
   const headerList = headers();
-  console.log(headerList.get('Authorization'));
+  // 1.Node.jsでクッキーの取得
+  // const test = request.cookies.get('test');
+  // console.log(test);
 
-  // 2.レスポンス（発信）のヘッダーを設定する方法
-  // return new Response('profile api');
+  // 2.Next.jsでクッキーの作成
+  cookies().set('page', '10');
+  // 2.Next.jsでクッキーの取得
+  console.log(cookies().get('page'));
+
+  // 1.Node.jsでクッキーの作成
   return new Response('<h1>profile api</h1>', {
     headers: {
       'Content-Type': 'text/html',
+      'Set-Cookie': 'test=demo',
     },
   });
 }
+// http://localhost:3000/profile/apiのGETでResponseをCookieに切り替えて実行
